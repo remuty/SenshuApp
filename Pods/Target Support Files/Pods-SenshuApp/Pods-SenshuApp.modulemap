@@ -1,0 +1,6 @@
+framework module Pods_SenshuApp {
+  umbrella header "Pods-SenshuApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
