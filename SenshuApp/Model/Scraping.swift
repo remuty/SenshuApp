@@ -12,7 +12,7 @@ import Kanna
 
 class Scraping {
     
-    //コースパワーから課題状況を取得
+    //CoursePowerから課題状況を取得
     func fetchTask(id:String, pwd:String, completion: @escaping ([TaskData]) -> Void){
         let url = "https://cp.ss.senshu-u.ac.jp"
         var parameters: [String: String] = [
@@ -51,6 +51,38 @@ class Scraping {
                     }
                     if i >= taskData.count - 1{
                         completion(taskData)
+                    }
+                }
+            }
+        }
+    }
+    
+    //ポータルから授業スケジュールを取得
+    func fetchSchedule(id:String, pwd:String, completion: @escaping ([[String]]) -> Void){
+        let url = "https://sps.acc.senshu-u.ac.jp/ActiveCampus"
+        let parameters: [String: String] = [
+            "login": id,
+            "passwd": pwd,
+            "mode": "Login",
+            "clickcheck": "0",
+        ]
+        var data = [[String]](repeating: [String](repeating: "", count: 6), count:7)
+        
+        AF.request(url + "/module/Login.php",method: .post,parameters: parameters).response{ response in
+            AF.request(url + "/module/MyPage.php").response { response in
+                if let html = response.value{
+                    if let doc = try? HTML(html: html!, encoding: .utf8) {
+                        //日・時限ごとの内容を抽出
+                        for i in 0..<7 {
+                            for j in 0..<6 {
+                                var s = (doc.at_xpath("//*[@id='ac979df3a192202adc435da109f41c7396']/table/tr[\(i + 2)]/td[\(j + 1)]")?.text)!
+                                s = s.replacingOccurrences(of: " ", with: "")
+                                s = s.replacingOccurrences(of: "　", with: "")
+                                s = s.replacingOccurrences(of: "\n", with: "")
+                                data[i][j] = s
+                            }
+                        }
+                        completion(data)
                     }
                 }
             }
