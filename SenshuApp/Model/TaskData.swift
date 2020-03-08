@@ -8,7 +8,9 @@
 
 import Foundation
 
-struct TaskData{
+struct TaskData: Identifiable{
+    var id = UUID()
+    
     var lectureName:String
     var lectureId:String
     var notSubmitted:Int

@@ -9,19 +9,26 @@
 import SwiftUI
 
 struct TaskRow: View {
-    @ObservedObject(initialValue: Scraping()) var scraping: Scraping
+    var taskData: TaskData
     var body: some View {
-        
-        VStack {
-            Text("Button").onAppear(perform: {//self.scraping.fetchSchedule()
-                //self.scraping.fetchTask()
-            })
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
+        HStack {
+            Text(taskData.lectureName)
+                .font(.headline)
+            Spacer()
+            VStack {
+                Text("未提出 \(taskData.notSubmitted)")
+                    .font(.body)
+                    .foregroundColor(Color.green)
+                Text("未参照 \(taskData.notViewed)")
+                    .font(.body)
+                    .foregroundColor(Color.pink)
+            }
+        }
     }
 }
 
 struct TaskRow_Previews: PreviewProvider {
     static var previews: some View {
-        TaskRow()
+        TaskRow(taskData: TaskData(lectureName: "講義名プログラミング", lectureId: "")).previewLayout(.fixed(width: 300, height: 50))
     }
 }

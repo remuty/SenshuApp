@@ -9,9 +9,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var scraping = Scraping()
+    var test: [TaskData] = [TaskData(lectureName: "講義名1プログラミング", lectureId: ""),TaskData(lectureName: "講義名2プログラミング", lectureId: ""),TaskData(lectureName: "講義名3プログラミング", lectureId: "")]
+    
     var body: some View {
-        Text("Hello, World!")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        HStack {
+            Text("Hello, World!").frame(maxWidth: .infinity, maxHeight: .infinity)
+            //            List(scraping.taskData){ taskData in
+            //                VStack {
+            //                    TaskRow(taskData: taskData)
+            //                    Divider()
+            //                }
+            //            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+            List(test){ taskData in
+                VStack {
+                    TaskRow(taskData: taskData)
+                    Divider()
+                }
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
+        .frame(minWidth: 600,minHeight: 350)
+        //.onAppear(perform: {self.scraping.fetchTask()})
     }
 }
 

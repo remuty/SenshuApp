@@ -31,7 +31,7 @@ class Scraping: ObservableObject {
             if let html = response.value{
                 if let doc = try? HTML(html: html!, encoding: .utf8) {
                     //講義名と講義idを抽出
-                    for node in doc.xpath("//*[@id='timetable']//td[contains(text(),'限')]/following-sibling::td[2]/a"){
+                    for node in doc.xpath("//*[@id='timetable']//td[contains(text(),'限') or contains(text(),'period')]/following-sibling::td[2]/a"){
                         var id = node["onclick"]!
                         id = id.replacingOccurrences(of: "formSubmit('", with: "")
                         id = id.replacingOccurrences(of: "')", with: "")
@@ -45,10 +45,10 @@ class Scraping: ObservableObject {
                 AF.request(url + "/lms/homeHoml/linkKougi",method: .post,parameters: parameters).response { response in
                     if let html = response.value{
                         if let doc = try? HTML(html: html!, encoding: .utf8) {
-                            for _ in doc.xpath("//span[@class='cs_taOpen']/../../following-sibling::td[1]/span[contains(text(), '未提出')]"){
+                            for _ in doc.xpath("//span[@class='cs_taOpen']/../../following-sibling::td[1]/span[contains(text(), '未提出') or contains(text(), 'Not submitted')]"){
                                 data[i].notSubmitted += 1
                             }
-                            for _ in doc.xpath("//span[@class='cs_taOpen']/../../following-sibling::td[1]/span[contains(text(), '未参照')]"){
+                            for _ in doc.xpath("//span[@class='cs_taOpen']/../../following-sibling::td[1]/span[contains(text(), '未参照') or contains(text(), 'Not viewed')]"){
                                 data[i].notViewed += 1
                             }
                         }
