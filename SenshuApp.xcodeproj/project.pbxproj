@@ -16,6 +16,8 @@
 		AA1A440B24136392000CC15F /* Scraping.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A440A24136392000CC15F /* Scraping.swift */; };
 		AA1A440D241363A2000CC15F /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A440C241363A2000CC15F /* TaskData.swift */; };
 		AA1A441324138C1A000CC15F /* TaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A441224138C1A000CC15F /* TaskRow.swift */; };
+		AA1A441924163C43000CC15F /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A441824163C43000CC15F /* ScheduleCell.swift */; };
+		AAFC5D5724168FD800E46255 /* ScheduleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFC5D5624168FD800E46255 /* ScheduleData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		AA1A440A24136392000CC15F /* Scraping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scraping.swift; sourceTree = "<group>"; };
 		AA1A440C241363A2000CC15F /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
 		AA1A441224138C1A000CC15F /* TaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRow.swift; sourceTree = "<group>"; };
+		AA1A441824163C43000CC15F /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
+		AAFC5D5624168FD800E46255 /* ScheduleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleData.swift; sourceTree = "<group>"; };
 		C6B2D1229F2B7CFA4E9179FF /* Pods-SenshuApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenshuApp.release.xcconfig"; path = "Target Support Files/Pods-SenshuApp/Pods-SenshuApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +105,7 @@
 			children = (
 				AA0F5C8A241360F500E49D4E /* ContentView.swift */,
 				AA1A441224138C1A000CC15F /* TaskRow.swift */,
+				AA1A441824163C43000CC15F /* ScheduleCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -110,6 +115,7 @@
 			children = (
 				AA1A440A24136392000CC15F /* Scraping.swift */,
 				AA1A440C241363A2000CC15F /* TaskData.swift */,
+				AAFC5D5624168FD800E46255 /* ScheduleData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -241,7 +247,9 @@
 				AA1A441324138C1A000CC15F /* TaskRow.swift in Sources */,
 				AA0F5C8B241360F500E49D4E /* ContentView.swift in Sources */,
 				AA0F5C89241360F500E49D4E /* AppDelegate.swift in Sources */,
+				AAFC5D5724168FD800E46255 /* ScheduleData.swift in Sources */,
 				AA1A440D241363A2000CC15F /* TaskData.swift in Sources */,
+				AA1A441924163C43000CC15F /* ScheduleCell.swift in Sources */,
 				AA1A440B24136392000CC15F /* Scraping.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

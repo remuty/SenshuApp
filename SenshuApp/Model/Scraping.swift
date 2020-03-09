@@ -12,7 +12,7 @@ import Kanna
 
 class Scraping: ObservableObject {
     @Published var taskData:[TaskData] = []
-    @Published var scheduleData:[[String]] = []
+    @Published var scheduleData = [[ScheduleData]](repeating: [ScheduleData](repeating: ScheduleData(), count: 6), count: 6)
     
     let id = ""
     let pwd = ""
@@ -28,6 +28,7 @@ class Scraping: ObservableObject {
         
         //ログイン
         AF.request(url + "/lms/lginLgir/login",method: .post,parameters: parameters).response { response in
+            print("login")
             if let html = response.value{
                 if let doc = try? HTML(html: html!, encoding: .utf8) {
                     //講義名と講義idを抽出
@@ -54,7 +55,9 @@ class Scraping: ObservableObject {
                         }
                     }
                     if i >= data.count - 1{
-                        self.taskData = data
+                        //未提出・未参照がある講義だけにする
+                        let filterData = data.filter{ $0.notSubmitted != 0 || $0.notViewed != 0}
+                        self.taskData = filterData
                     }
                 }
             }
@@ -70,20 +73,24 @@ class Scraping: ObservableObject {
             "mode": "Login",
             "clickcheck": "0",
         ]
-        var data = [[String]](repeating: [String](repeating: "", count: 6), count:7)
+        var data = [[ScheduleData]](repeating: [ScheduleData](repeating: ScheduleData(), count: 6), count: 6)
         
         AF.request(url + "/module/Login.php",method: .post,parameters: parameters).response{ response in
-            AF.request(url + "/module/MyPage.php").response { response in
+            AF.request(url + "/module/Jikanwari.php?mode=latter").response { response in
                 if let html = response.value{
                     if let doc = try? HTML(html: html!, encoding: .utf8) {
                         //日・時限ごとの内容を抽出
-                        for i in 0..<7 {
+                        for i in 0..<6 {
                             for j in 0..<6 {
-                                var s = (doc.at_xpath("//*[@id='ac979df3a192202adc435da109f41c7396']/table/tr[\(i + 2)]/td[\(j + 1)]")?.text)!
-                                s = s.replacingOccurrences(of: " ", with: "")
-                                s = s.replacingOccurrences(of: "　", with: "")
-                                s = s.replacingOccurrences(of: "\n", with: "")
-                                data[i][j] = s
+                                let path = "//*[@id='portlet_acPortlet_0']/table[1]/tr[\(i + 3)]/td[\(j + 1)]"
+                                var s:String? = doc.at_xpath("\(path)/a")?.text
+                                if s != nil{
+                                    data[i][j].lecture = s!
+                                    s = doc.at_xpath("\(path)/text()[4]")?.text
+                                    data[i][j].teacher = "教員名"//s!.trimmingCharacters(in: .whitespacesAndNewlines)
+                                    s = doc.at_xpath("\(path)/text()[5]")?.text
+                                    data[i][j].classroom = s!.trimmingCharacters(in: .whitespacesAndNewlines)
+                                }
                             }
                         }
                         self.scheduleData = data

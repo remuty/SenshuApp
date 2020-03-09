@@ -10,26 +10,43 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var scraping = Scraping()
-    var test: [TaskData] = [TaskData(lectureName: "講義名1プログラミング", lectureId: ""),TaskData(lectureName: "講義名2プログラミング", lectureId: ""),TaskData(lectureName: "講義名3プログラミング", lectureId: "")]
     
     var body: some View {
-        HStack {
-            Text("Hello, World!").frame(maxWidth: .infinity, maxHeight: .infinity)
-            //            List(scraping.taskData){ taskData in
-            //                VStack {
-            //                    TaskRow(taskData: taskData)
-            //                    Divider()
-            //                }
-            //            }.frame(maxWidth: .infinity, maxHeight: .infinity)
-            List(test){ taskData in
+        GeometryReader { geometry in
+            
+            HStack(spacing: 0) {
+                
+                VStack(spacing: 0) {
+                    ForEach(0..<6){ i in
+                        HStack(spacing: 0) {
+                            ForEach(0..<6){ j in
+                                ScheduleCell(schedule: self.scraping.scheduleData[i][j])
+                            }
+                        }
+                    }
+                }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                
                 VStack {
-                    TaskRow(taskData: taskData)
-                    Divider()
+                    List(self.scraping.taskData){ taskData in
+                        VStack {
+                            TaskRow(taskData: taskData)
+                            Divider()
+                            
+                        }
+                    }.frame(width: geometry.size.width / 3)
+                    Button(action: {self.scraping.fetchTask()}) {
+                        Text(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/)
+                    }
                 }
-            }.frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-        .frame(minWidth: 600,minHeight: 350)
-        //.onAppear(perform: {self.scraping.fetchTask()})
+                
+            }
+        }.frame(minWidth: 600,minHeight: 450)
+            .onAppear(perform: {self.scraping.fetchSchedule()
+                print("fetchsc")
+            })
+            .onAppear(perform: {self.scraping.fetchTask()
+                print("fetchta")
+            })
     }
 }
 
