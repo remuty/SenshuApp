@@ -9,43 +9,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var scraping = Scraping()
+    @ObservedObject var userData = UserData()
     
     var body: some View {
-        GeometryReader { geometry in
-            
-            HStack(spacing: 0) {
-                
-                VStack(spacing: 0) {
-                    ForEach(0..<6){ i in
-                        HStack(spacing: 0) {
-                            ForEach(0..<6){ j in
-                                ScheduleCell(schedule: self.scraping.scheduleData[i][j])
-                            }
-                        }
-                    }
-                }.frame(maxWidth: .infinity, maxHeight: .infinity)
-                
-                VStack {
-                    List(self.scraping.taskData){ taskData in
-                        VStack {
-                            TaskRow(taskData: taskData)
-                            Divider()
-                        }
-                    }.frame(width: geometry.size.width / 3)
-                    Button(action: {self.scraping.fetchTask()}) {
-                        Text("更新")
-                    }
-                }
-                
+        VStack {
+            if userData.id != "" {
+                MainView()
+            }else{
+                LoginView(userData: userData)
             }
-        }.frame(minWidth: 600,minHeight: 450)
-            .onAppear(perform: {self.scraping.fetchSchedule()
-                print("fetchsc")
-            })
-            .onAppear(perform: {self.scraping.fetchTask()
-                print("fetchta")
-            })
+            Button(action: {
+                self.userData.delete()
+            }) {
+                Text("ログアウト")
+            }
+        }.onAppear(perform: {self.userData.load()})
     }
 }
 

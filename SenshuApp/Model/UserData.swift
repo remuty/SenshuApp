@@ -1,0 +1,36 @@
+//
+//  UserData.swift
+//  SenshuApp
+//
+//  Created by remuty on 2020/03/11.
+//  Copyright © 2020 remuty. All rights reserved.
+//
+
+import Foundation
+
+class UserData: ObservableObject {
+    @Published var id = ""
+    @Published var password = ""
+    
+    func set(id:String,pw:String) {
+        UserDefaults.standard.set(id, forKey: "id")
+        UserDefaults.standard.set(pw, forKey: "password")
+        self.id = id
+        self.password = pw
+    }
+    
+    func load() -> (String,String){
+        if UserDefaults.standard.string(forKey: "id") != nil {
+            self.id = UserDefaults.standard.string(forKey: "id")!
+            self.password = UserDefaults.standard.string(forKey: "password")!
+        }
+        return (self.id, self.password)
+    }
+    
+    func delete() {
+        UserDefaults.standard.removeObject(forKey: "id")
+        UserDefaults.standard.removeObject(forKey: "password")
+        self.id = ""
+        self.password = ""
+    }
+}

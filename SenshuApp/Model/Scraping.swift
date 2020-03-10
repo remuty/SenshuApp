@@ -14,15 +14,15 @@ class Scraping: ObservableObject {
     @Published var taskData:[TaskData] = []
     @Published var scheduleData = [[ScheduleData]](repeating: [ScheduleData](repeating: ScheduleData(), count: 6), count: 6)
     
-    let id = ""
-    let pwd = ""
+    let id:String = UserData().load().0
+    let password:String = UserData().load().1
     
     //CoursePowerから課題状況を取得
     func fetchTask(){
         let url = "https://cp.ss.senshu-u.ac.jp"
         var parameters: [String: String] = [
             "userId": self.id,
-            "password": self.pwd,
+            "password": self.password
         ]
         var data:[TaskData] = []
         self.taskData = []
@@ -73,7 +73,7 @@ class Scraping: ObservableObject {
         let url = "https://sps.acc.senshu-u.ac.jp/ActiveCampus"
         let parameters: [String: String] = [
             "login": self.id,
-            "passwd": self.pwd,
+            "passwd": self.password,
             "mode": "Login",
             "clickcheck": "0",
         ]
@@ -91,7 +91,7 @@ class Scraping: ObservableObject {
                                 if s != nil{
                                     data[i][j].lecture = s!
                                     s = doc.at_xpath("\(path)/text()[4]")?.text
-                                    data[i][j].teacher = "教員名"//s!.trimmingCharacters(in: .whitespacesAndNewlines)
+                                    data[i][j].teacher = s!.trimmingCharacters(in: .whitespacesAndNewlines)
                                     s = doc.at_xpath("\(path)/text()[5]")?.text
                                     data[i][j].classroom = s!.trimmingCharacters(in: .whitespacesAndNewlines)
                                 }
