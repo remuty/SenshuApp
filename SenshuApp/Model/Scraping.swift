@@ -25,10 +25,10 @@ class Scraping: ObservableObject {
             "password": self.pwd,
         ]
         var data:[TaskData] = []
+        self.taskData = []
         
         //ログイン
         AF.request(url + "/lms/lginLgir/login",method: .post,parameters: parameters).response { response in
-            print("login")
             if let html = response.value{
                 if let doc = try? HTML(html: html!, encoding: .utf8) {
                     //講義名と講義idを抽出
@@ -38,30 +38,34 @@ class Scraping: ObservableObject {
                         id = id.replacingOccurrences(of: "')", with: "")
                         data.append(TaskData(lectureName: node.text!, lectureId: id))
                     }
+                    fetchEachLecture(i: 0)
                 }
             }
-            //講義ごとの未提出・未参照状況取得
-            for i in 0..<data.count {
-                parameters = ["kougiId": data[i].lectureId]
-                AF.request(url + "/lms/homeHoml/linkKougi",method: .post,parameters: parameters).response { response in
-                    if let html = response.value{
-                        if let doc = try? HTML(html: html!, encoding: .utf8) {
-                            for _ in doc.xpath("//span[@class='cs_taOpen']/../../following-sibling::td[1]/span[contains(text(), '未提出') or contains(text(), 'Not submitted')]"){
-                                data[i].notSubmitted += 1
-                            }
-                            for _ in doc.xpath("//span[@class='cs_taOpen']/../../following-sibling::td[1]/span[contains(text(), '未参照') or contains(text(), 'Not viewed')]"){
-                                data[i].notViewed += 1
-                            }
+        }
+        
+        //講義ごとの未提出・未参照状況取得
+        func fetchEachLecture(i:Int) {
+            parameters = ["kougiId": data[i].lectureId]
+            AF.request(url + "/lms/homeHoml/linkKougi",method: .post,parameters: parameters).response { response in
+                if let html = response.value{
+                    if let doc = try? HTML(html: html!, encoding: .utf8) {
+                        for _ in doc.xpath("//span[@class='cs_taOpen']/../../following-sibling::td[1]/span[contains(text(), '未提出') or contains(text(), 'Not submitted')]"){
+                            data[i].notSubmitted += 1
                         }
-                    }
-                    if i >= data.count - 1{
-                        //未提出・未参照がある講義だけにする
-                        let filterData = data.filter{ $0.notSubmitted != 0 || $0.notViewed != 0}
-                        self.taskData = filterData
+                        for _ in doc.xpath("//span[@class='cs_taOpen']/../../following-sibling::td[1]/span[contains(text(), '未参照') or contains(text(), 'Not viewed')]"){
+                            data[i].notViewed += 1
+                        }
+                        if data[i].notSubmitted != 0 || data[i].notViewed != 0 {
+                            self.taskData.append(data[i])
+                        }
+                        if i < data.count - 1{
+                            fetchEachLecture(i: i + 1)
+                        }
                     }
                 }
             }
         }
+        
     }
     
     //ポータルから授業スケジュールを取得

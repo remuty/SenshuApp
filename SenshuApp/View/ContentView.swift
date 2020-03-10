@@ -31,11 +31,10 @@ struct ContentView: View {
                         VStack {
                             TaskRow(taskData: taskData)
                             Divider()
-                            
                         }
                     }.frame(width: geometry.size.width / 3)
                     Button(action: {self.scraping.fetchTask()}) {
-                        Text(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/)
+                        Text("更新")
                     }
                 }
                 
