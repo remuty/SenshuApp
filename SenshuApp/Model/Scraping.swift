@@ -14,15 +14,12 @@ class Scraping: ObservableObject {
     @Published var taskData:[TaskData] = []
     @Published var scheduleData = [[ScheduleData]](repeating: [ScheduleData](repeating: ScheduleData(), count: 6), count: 6)
     
-    let id:String = User().load().0
-    let password:String = User().load().1
-    
     //CoursePowerから課題状況を取得
-    func fetchTask(){
+    func fetchTask(_ user: User){
         let url = "https://cp.ss.senshu-u.ac.jp"
         var parameters: [String: String] = [
-            "userId": self.id,
-            "password": self.password
+            "userId": user.id,
+            "password": user.password
         ]
         var data:[TaskData] = []
         self.taskData = []
@@ -38,7 +35,9 @@ class Scraping: ObservableObject {
                         id = id.replacingOccurrences(of: "')", with: "")
                         data.append(TaskData(lectureName: node.text!, lectureId: id))
                     }
-                    fetchEachLecture(i: 0)
+                    if data.count != 0{
+                        fetchEachLecture(i: 0)
+                    }
                 }
             }
         }
@@ -69,11 +68,11 @@ class Scraping: ObservableObject {
     }
     
     //ポータルから授業スケジュールを取得
-    func fetchSchedule(){
+    func fetchSchedule(_ user: User){
         let url = "https://sps.acc.senshu-u.ac.jp/ActiveCampus"
         let parameters: [String: String] = [
-            "login": self.id,
-            "passwd": self.password,
+            "login": user.id,
+            "passwd": user.password,
             "mode": "Login",
             "clickcheck": "0",
         ]

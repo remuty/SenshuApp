@@ -38,12 +38,11 @@ class User: ObservableObject {
         }
     }
     
-    func load() -> (String,String){
+    func load() {
         if UserDefaults.standard.string(forKey: "id") != nil {
             self.id = UserDefaults.standard.string(forKey: "id")!
             self.password = UserDefaults.standard.string(forKey: "password")!
         }
-        return (self.id, self.password)
     }
     
     func delete() {

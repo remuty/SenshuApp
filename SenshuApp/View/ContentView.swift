@@ -19,14 +19,14 @@ struct ContentView: View {
                 VStack(spacing: 0) {
                     HStack {
                         Spacer()
-                        Button(action: {self.scraping.fetchTask()}) {
+                        Button(action: {self.scraping.fetchTask(self.user)}) {
                             Text("更新")}
                         Button(action: {self.user.delete()}) {
                             Text("ログアウト")}
                     }
                     MainView(scraping: self.scraping).onAppear(perform: {
-                        self.scraping.fetchSchedule()
-                        self.scraping.fetchTask()
+                        self.scraping.fetchSchedule(self.user)
+                        self.scraping.fetchTask(self.user)
                     })
                 }
             }else{
