@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import Kanna
 
-class UserData: ObservableObject {
+class User: ObservableObject {
     @Published var id = ""
     @Published var password = ""
     

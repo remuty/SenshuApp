@@ -19,7 +19,7 @@
 		AA1A441924163C43000CC15F /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A441824163C43000CC15F /* ScheduleCell.swift */; };
 		AA8822BE2417DF5A00093D36 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8822BD2417DF5A00093D36 /* LoginView.swift */; };
 		AA8822C12417F25600093D36 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8822C02417F25600093D36 /* MainView.swift */; };
-		AA8822C32417FF2300093D36 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8822C22417FF2300093D36 /* UserData.swift */; };
+		AA8822C32417FF2300093D36 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8822C22417FF2300093D36 /* User.swift */; };
 		AAFC5D5724168FD800E46255 /* ScheduleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFC5D5624168FD800E46255 /* ScheduleData.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,7 +40,7 @@
 		AA1A441824163C43000CC15F /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		AA8822BD2417DF5A00093D36 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		AA8822C02417F25600093D36 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		AA8822C22417FF2300093D36 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		AA8822C22417FF2300093D36 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AAFC5D5624168FD800E46255 /* ScheduleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleData.swift; sourceTree = "<group>"; };
 		C6B2D1229F2B7CFA4E9179FF /* Pods-SenshuApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenshuApp.release.xcconfig"; path = "Target Support Files/Pods-SenshuApp/Pods-SenshuApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,7 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				AA1A440A24136392000CC15F /* Scraping.swift */,
-				AA8822C22417FF2300093D36 /* UserData.swift */,
+				AA8822C22417FF2300093D36 /* User.swift */,
 				AA1A440C241363A2000CC15F /* TaskData.swift */,
 				AAFC5D5624168FD800E46255 /* ScheduleData.swift */,
 			);
@@ -261,7 +261,7 @@
 				AA1A440D241363A2000CC15F /* TaskData.swift in Sources */,
 				AA1A441924163C43000CC15F /* ScheduleCell.swift in Sources */,
 				AA8822BE2417DF5A00093D36 /* LoginView.swift in Sources */,
-				AA8822C32417FF2300093D36 /* UserData.swift in Sources */,
+				AA8822C32417FF2300093D36 /* User.swift in Sources */,
 				AA1A440B24136392000CC15F /* Scraping.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

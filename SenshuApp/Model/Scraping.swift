@@ -14,8 +14,8 @@ class Scraping: ObservableObject {
     @Published var taskData:[TaskData] = []
     @Published var scheduleData = [[ScheduleData]](repeating: [ScheduleData](repeating: ScheduleData(), count: 6), count: 6)
     
-    let id:String = UserData().load().0
-    let password:String = UserData().load().1
+    let id:String = User().load().0
+    let password:String = User().load().1
     
     //CoursePowerから課題状況を取得
     func fetchTask(){

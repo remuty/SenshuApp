@@ -9,12 +9,12 @@
 import SwiftUI
 
 struct MainView: View {
-    var scraping = Scraping()
+    @ObservedObject var scraping:Scraping
+    
     var body: some View {
         GeometryReader { geometry in
             
             HStack(spacing: 0) {
-                
                 VStack(spacing: 0) {
                     ForEach(0..<6){ i in
                         HStack(spacing: 0) {
@@ -31,16 +31,15 @@ struct MainView: View {
                         Divider()
                     }
                 }.frame(width: geometry.size.width / 3)
-                
             }
+            
         }.frame(minWidth: 600,minHeight: 450)
-        //            .onAppear(perform: {self.scraping.fetchSchedule()})
-        //            .onAppear(perform: {self.scraping.fetchTask()})
     }
 }
 
+
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        MainView(scraping: Scraping())
     }
 }

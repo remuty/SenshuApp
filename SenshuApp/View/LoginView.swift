@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    var userData = UserData()
+    var user = User()
     @State private var id = ""
     @State private var password = ""
     @State private var error = false
@@ -53,7 +53,7 @@ struct LoginView: View {
                 }.padding()
                 
                 Button(action: {
-                    self.userData.login(id: self.id, pw: self.password,completion: {(err) in
+                    self.user.login(id: self.id, pw: self.password,completion: {(err) in
                         self.error = err
                     })
                 }) {

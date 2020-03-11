@@ -9,32 +9,37 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject var userData = UserData()
+    @ObservedObject var user = User()
     @ObservedObject var scraping = Scraping()
     
     var body: some View {
+        
         VStack {
-            if userData.id != "" {
+            if user.id != "" {
                 VStack(spacing: 0) {
                     HStack {
                         Spacer()
                         Button(action: {self.scraping.fetchTask()}) {
                             Text("更新")}
-                        Button(action: {self.userData.delete()}) {
+                        Button(action: {self.user.delete()}) {
                             Text("ログアウト")}
                     }
-                    MainView(scraping: self.scraping)
+                    MainView(scraping: self.scraping).onAppear(perform: {
+                        self.scraping.fetchSchedule()
+                        self.scraping.fetchTask()
+                    })
                 }
             }else{
-                LoginView(userData: self.userData)
+                LoginView(user: self.user)
             }
-        }.onAppear(perform: {self.userData.load()})
+        }.onAppear(perform: {print(self.user.load())})
+        
     }
 }
 
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(userData: UserData())
+        ContentView()
     }
 }
