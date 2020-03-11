@@ -122,9 +122,9 @@
 			isa = PBXGroup;
 			children = (
 				AA1A440A24136392000CC15F /* Scraping.swift */,
+				AA8822C22417FF2300093D36 /* UserData.swift */,
 				AA1A440C241363A2000CC15F /* TaskData.swift */,
 				AAFC5D5624168FD800E46255 /* ScheduleData.swift */,
-				AA8822C22417FF2300093D36 /* UserData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

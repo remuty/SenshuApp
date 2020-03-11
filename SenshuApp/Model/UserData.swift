@@ -7,16 +7,35 @@
 //
 
 import Foundation
+import Alamofire
+import Kanna
 
 class UserData: ObservableObject {
     @Published var id = ""
     @Published var password = ""
     
-    func set(id:String,pw:String) {
-        UserDefaults.standard.set(id, forKey: "id")
-        UserDefaults.standard.set(pw, forKey: "password")
-        self.id = id
-        self.password = pw
+    func login(id:String, pw:String, completion: @escaping (Bool) -> Void) {
+        let url = "https://cp.ss.senshu-u.ac.jp"
+        let parameters: [String: String] = [
+            "userId": id,
+            "password": pw
+        ]
+        AF.request(url + "/lms/lginLgir/login",method: .post,parameters: parameters).response { response in
+            if let html = response.value{
+                if let doc = try? HTML(html: html!, encoding: .utf8) {
+                    //ログイン判定をする
+                    if let _ = doc.at_xpath("//*[@id='cs_loginInfo']"){
+                        UserDefaults.standard.set(id, forKey: "id")
+                        UserDefaults.standard.set(pw, forKey: "password")
+                        self.id = id
+                        self.password = pw
+                        completion(false)
+                    }else{
+                        completion(true)
+                    }
+                }
+            }
+        }
     }
     
     func load() -> (String,String){

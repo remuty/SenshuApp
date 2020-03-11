@@ -12,34 +12,54 @@ struct LoginView: View {
     var userData = UserData()
     @State private var id = ""
     @State private var password = ""
+    @State private var error = false
     
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 30) {
-                Spacer()
                 Text("ログイン")
-                    .font(.title)
-                Spacer()
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
                 
                 VStack {
-                    Text("ユーザーID")
-                        .font(.headline)
-                    TextField("", text: self.$id).frame(width: geometry.size.width / 2)
+                    HStack {
+                        Text("ユーザーID")
+                            .font(.headline)
+                        Spacer()
+                    }
+                    TextField("", text: self.$id)
                 }.padding()
                 
                 VStack {
-                    Text("パスワード")
-                        .font(.headline)
-                    SecureField("", text: self.$password).frame(width: geometry.size.width / 2)
+                    HStack {
+                        Text("パスワード")
+                            .font(.headline)
+                        Spacer()
+                    }
+                    SecureField("", text: self.$password)
+                    VStack {
+                        HStack {
+                            Text("※情報科学センターのID・パスワードを使用してください")
+                            Spacer()
+                        }
+                        if self.error {
+                            HStack {
+                                Text("※IDまたはパスワードが間違っています")
+                                    .foregroundColor(Color.red)
+                                Spacer()
+                            }
+                        }
+                    }
                 }.padding()
                 
                 Button(action: {
-                    self.userData.set(id: self.id, pw: self.password)
+                    self.userData.login(id: self.id, pw: self.password,completion: {(err) in
+                        self.error = err
+                    })
                 }) {
                     Text("ログイン")
                 }
-                Spacer()
-            }
+            }.frame(width: geometry.size.width / 2)
         }.frame(minWidth: 400,minHeight: 450)
     }
 }

@@ -9,8 +9,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @ObservedObject var scraping = Scraping()
-    
+    var scraping = Scraping()
     var body: some View {
         GeometryReader { geometry in
             
@@ -26,22 +25,17 @@ struct MainView: View {
                     }
                 }.frame(maxWidth: .infinity, maxHeight: .infinity)
                 
-                VStack {
-                    List(self.scraping.taskData){ taskData in
-                        VStack {
-                            TaskRow(taskData: taskData)
-                            Divider()
-                        }
-                    }.frame(width: geometry.size.width / 3)
-                    Button(action: {self.scraping.fetchTask()}) {
-                        Text("更新")
+                List(self.scraping.taskData){ taskData in
+                    VStack {
+                        TaskRow(taskData: taskData)
+                        Divider()
                     }
-                }
+                }.frame(width: geometry.size.width / 3)
                 
             }
         }.frame(minWidth: 600,minHeight: 450)
-//            .onAppear(perform: {self.scraping.fetchSchedule()})
-//            .onAppear(perform: {self.scraping.fetchTask()})
+        //            .onAppear(perform: {self.scraping.fetchSchedule()})
+        //            .onAppear(perform: {self.scraping.fetchTask()})
     }
 }
 

@@ -10,18 +10,23 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var userData = UserData()
+    @ObservedObject var scraping = Scraping()
     
     var body: some View {
         VStack {
             if userData.id != "" {
-                MainView()
+                VStack(spacing: 0) {
+                    HStack {
+                        Spacer()
+                        Button(action: {self.scraping.fetchTask()}) {
+                            Text("更新")}
+                        Button(action: {self.userData.delete()}) {
+                            Text("ログアウト")}
+                    }
+                    MainView(scraping: self.scraping)
+                }
             }else{
-                LoginView(userData: userData)
-            }
-            Button(action: {
-                self.userData.delete()
-            }) {
-                Text("ログアウト")
+                LoginView(userData: self.userData)
             }
         }.onAppear(perform: {self.userData.load()})
     }
@@ -30,6 +35,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(userData: UserData())
     }
 }
