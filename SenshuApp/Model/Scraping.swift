@@ -13,6 +13,7 @@ import Kanna
 class Scraping: ObservableObject {
     @Published var taskData:[TaskData] = []
     @Published var scheduleData = [[ScheduleData]](repeating: [ScheduleData](repeating: ScheduleData(), count: 6), count: 6)
+    @Published var dates = [String](repeating: "", count: 6)
     
     //CoursePowerから課題状況を取得
     func fetchTask(_ user: User){
@@ -77,26 +78,41 @@ class Scraping: ObservableObject {
             "clickcheck": "0",
         ]
         var data = [[ScheduleData]](repeating: [ScheduleData](repeating: ScheduleData(), count: 6), count: 6)
+        var dates = [String](repeating: "", count: 6)
         
         AF.request(url + "/module/Login.php",method: .post,parameters: parameters).response{ response in
-            AF.request(url + "/module/Jikanwari.php?mode=latter").response { response in
+            AF.request(url + "/module/MyPage.php").response { response in
                 if let html = response.value{
                     if let doc = try? HTML(html: html!, encoding: .utf8) {
-                        //日・時限ごとの内容を抽出
+                        //日付を取得
                         for i in 0..<6 {
-                            for j in 0..<6 {
-                                let path = "//*[@id='portlet_acPortlet_0']/table[1]/tr[\(i + 3)]/td[\(j + 1)]"
-                                var s:String? = doc.at_xpath("\(path)/a")?.text
-                                if s != nil{
-                                    data[i][j].lecture = s!
-                                    s = doc.at_xpath("\(path)/text()[4]")?.text
-                                    data[i][j].teacher = s!.trimmingCharacters(in: .whitespacesAndNewlines)
-                                    s = doc.at_xpath("\(path)/text()[5]")?.text
-                                    data[i][j].classroom = s!.trimmingCharacters(in: .whitespacesAndNewlines)
-                                }
+                            if let s = doc.at_xpath("//*[@id='ac979df3a192202adc435da109f41c7396']//tr[1]/th[\(i + 1)]")?.text{
+                                dates[i] = s.trimmingCharacters(in: .whitespacesAndNewlines)
                             }
                         }
-                        self.scheduleData = data
+                        self.dates = dates
+                    }
+                }
+                //TODO: 本番環境のデータを使う処理に書き換える
+                //テスト用のデータ(後期の内容)取得
+                AF.request(url + "/module/Jikanwari.php?mode=latter").response { response in
+                    if let html = response.value{
+                        if let doc = try? HTML(html: html!, encoding: .utf8) {
+                            //日・時限ごとの内容を抽出
+                            for i in 0..<6 {
+                                for j in 0..<6 {
+                                    let path = "//*[@id='portlet_acPortlet_0']/table[1]/tr[\(i + 3)]/td[\(j + 1)]"
+                                    if var s = doc.at_xpath("\(path)/a")?.text{
+                                        data[i][j].lecture = s
+                                        s = (doc.at_xpath("\(path)/text()[4]")?.text)!
+                                        data[i][j].teacher = s.trimmingCharacters(in: .whitespacesAndNewlines)
+                                        s = (doc.at_xpath("\(path)/text()[5]")?.text)!
+                                        data[i][j].classroom = s.trimmingCharacters(in: .whitespacesAndNewlines)
+                                    }
+                                }
+                            }
+                            self.scheduleData = data
+                        }
                     }
                 }
             }

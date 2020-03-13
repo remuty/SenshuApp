@@ -32,7 +32,7 @@ struct ContentView: View {
             }else{
                 LoginView(user: self.user)
             }
-        }.onAppear(perform: {print(self.user.load())})
+        }.onAppear(perform: {self.user.load()})
         
     }
 }

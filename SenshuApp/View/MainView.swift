@@ -16,14 +16,24 @@ struct MainView: View {
             
             HStack(spacing: 0) {
                 VStack(spacing: 0) {
+                    HStack(spacing: 0) {
+                        ForEach(0..<6){
+                            if $0 == 0{
+                                Text("").frame(maxWidth: 30, maxHeight: 30)
+                            }
+                            Text(self.scraping.dates[$0]).frame(maxWidth: .infinity, maxHeight: 30)
+                        }.border(Color.gray)
+                    }
                     ForEach(0..<6){ i in
                         HStack(spacing: 0) {
+                            Text("\(i + 1)").frame(maxWidth: 30, maxHeight: .infinity)
+                                .border(Color.gray)
                             ForEach(0..<6){ j in
                                 ScheduleCell(schedule: self.scraping.scheduleData[i][j])
                             }
                         }
                     }
-                }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
                 
                 List(self.scraping.taskData){ taskData in
                     VStack {
