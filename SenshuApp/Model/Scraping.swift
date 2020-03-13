@@ -102,6 +102,9 @@ class Scraping: ObservableObject {
                             for i in 0..<6 {
                                 for j in 0..<6 {
                                     let path = "//*[@id='portlet_acPortlet_0']/table[1]/tr[\(i + 3)]/td[\(j + 1)]"
+                                    if let img = doc.at_xpath("\(path)/img") {
+                                        data[i][j].status = img["title"]
+                                    }
                                     if var s = doc.at_xpath("\(path)/a")?.text{
                                         data[i][j].lecture = s
                                         s = (doc.at_xpath("\(path)/text()[4]")?.text)!

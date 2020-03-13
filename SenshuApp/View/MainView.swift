@@ -13,7 +13,6 @@ struct MainView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            
             HStack(spacing: 0) {
                 VStack(spacing: 0) {
                     HStack(spacing: 0) {

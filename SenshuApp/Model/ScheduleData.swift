@@ -9,6 +9,7 @@
 import Foundation
 
 struct ScheduleData{
+    var status:String?
     var lecture:String = ""
     var teacher:String = ""
     var classroom:String = ""
