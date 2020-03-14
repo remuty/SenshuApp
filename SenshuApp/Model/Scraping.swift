@@ -81,19 +81,35 @@ class Scraping: ObservableObject {
         var dates = [String](repeating: "", count: 6)
         
         AF.request(url + "/module/Login.php",method: .post,parameters: parameters).response{ response in
-            AF.request(url + "/module/MyPage.php").response { response in
+            AF.request(url + "/module/Jikanwari.php?mode=list").response { response in
                 if let html = response.value{
                     if let doc = try? HTML(html: html!, encoding: .utf8) {
-                        //日付を取得
                         for i in 0..<6 {
-                            if let s = doc.at_xpath("//*[@id='ac979df3a192202adc435da109f41c7396']//tr[1]/th[\(i + 1)]")?.text{
+                            //日付を取得
+                            if let s = doc.at_xpath("//*[@id='portlet_acPortlet_0']/table[1]/tr[1]/th[\(i + 1)]")?.text{
                                 dates[i] = s.trimmingCharacters(in: .whitespacesAndNewlines)
                             }
+                            //TODO: 本番ではこっちを使う
+                            //日・時限ごとの内容を抽出
+//                            for j in 0..<6 {
+//                                let path = "//*[@id='portlet_acPortlet_0']/table[1]/tr[\(i + 3)]/td[\(j + 1)]"
+//                                if let img = doc.at_xpath("\(path)/img") {
+//                                    data[i][j].status = img["title"]
+//                                }
+//                                if var s = doc.at_xpath("\(path)/a")?.text{
+//                                    data[i][j].lecture = s
+//                                    s = (doc.at_xpath("\(path)/text()[4]")?.text)!
+//                                    data[i][j].teacher = s.trimmingCharacters(in: .whitespacesAndNewlines)
+//                                    s = (doc.at_xpath("\(path)/text()[5]")?.text)!
+//                                    data[i][j].classroom = s.trimmingCharacters(in: .whitespacesAndNewlines)
+//                                }
+//                            }
                         }
                         self.dates = dates
+                        self.scheduleData = data
                     }
                 }
-                //TODO: 本番環境のデータを使う処理に書き換える
+                //TODO: 本番環境のデータを使う処理に変更する
                 //テスト用のデータ(後期の内容)取得
                 AF.request(url + "/module/Jikanwari.php?mode=latter").response { response in
                     if let html = response.value{
@@ -118,6 +134,7 @@ class Scraping: ObservableObject {
                         }
                     }
                 }
+                
             }
         }
     }
