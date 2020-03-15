@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,14 @@
 		AA0F5C8D241360F600E49D4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA0F5C8C241360F600E49D4E /* Assets.xcassets */; };
 		AA0F5C90241360F600E49D4E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA0F5C8F241360F600E49D4E /* Preview Assets.xcassets */; };
 		AA0F5C93241360F600E49D4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA0F5C91241360F600E49D4E /* Main.storyboard */; };
+		AA1A440B24136392000CC15F /* Scraping.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A440A24136392000CC15F /* Scraping.swift */; };
+		AA1A440D241363A2000CC15F /* TaskData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A440C241363A2000CC15F /* TaskData.swift */; };
+		AA1A441324138C1A000CC15F /* TaskRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A441224138C1A000CC15F /* TaskRow.swift */; };
+		AA1A441924163C43000CC15F /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A441824163C43000CC15F /* ScheduleCell.swift */; };
+		AA8822BE2417DF5A00093D36 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8822BD2417DF5A00093D36 /* LoginView.swift */; };
+		AA8822C12417F25600093D36 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8822C02417F25600093D36 /* MainView.swift */; };
+		AA8822C32417FF2300093D36 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8822C22417FF2300093D36 /* User.swift */; };
+		AAFC5D5724168FD800E46255 /* ScheduleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAFC5D5624168FD800E46255 /* ScheduleData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +34,14 @@
 		AA0F5C92241360F600E49D4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AA0F5C94241360F600E49D4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA0F5C95241360F600E49D4E /* SenshuApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SenshuApp.entitlements; sourceTree = "<group>"; };
+		AA1A440A24136392000CC15F /* Scraping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scraping.swift; sourceTree = "<group>"; };
+		AA1A440C241363A2000CC15F /* TaskData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskData.swift; sourceTree = "<group>"; };
+		AA1A441224138C1A000CC15F /* TaskRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRow.swift; sourceTree = "<group>"; };
+		AA1A441824163C43000CC15F /* ScheduleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
+		AA8822BD2417DF5A00093D36 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		AA8822C02417F25600093D36 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		AA8822C22417FF2300093D36 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		AAFC5D5624168FD800E46255 /* ScheduleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleData.swift; sourceTree = "<group>"; };
 		C6B2D1229F2B7CFA4E9179FF /* Pods-SenshuApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SenshuApp.release.xcconfig"; path = "Target Support Files/Pods-SenshuApp/Pods-SenshuApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,8 +86,9 @@
 		AA0F5C87241360F500E49D4E /* SenshuApp */ = {
 			isa = PBXGroup;
 			children = (
+				AA1A440924136335000CC15F /* Model */,
+				AA1A44082413632D000CC15F /* View */,
 				AA0F5C88241360F500E49D4E /* AppDelegate.swift */,
-				AA0F5C8A241360F500E49D4E /* ContentView.swift */,
 				AA0F5C8C241360F600E49D4E /* Assets.xcassets */,
 				AA0F5C91241360F600E49D4E /* Main.storyboard */,
 				AA0F5C94241360F600E49D4E /* Info.plist */,
@@ -89,13 +106,35 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		AA1A44082413632D000CC15F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AA0F5C8A241360F500E49D4E /* ContentView.swift */,
+				AA8822BD2417DF5A00093D36 /* LoginView.swift */,
+				AA8822C02417F25600093D36 /* MainView.swift */,
+				AA1A441224138C1A000CC15F /* TaskRow.swift */,
+				AA1A441824163C43000CC15F /* ScheduleCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AA1A440924136335000CC15F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A440A24136392000CC15F /* Scraping.swift */,
+				AA8822C22417FF2300093D36 /* User.swift */,
+				AA1A440C241363A2000CC15F /* TaskData.swift */,
+				AAFC5D5624168FD800E46255 /* ScheduleData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		D1DA0E46F169C256415B8A97 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				0B6D217B44ABC14B573F4443 /* Pods-SenshuApp.debug.xcconfig */,
 				C6B2D1229F2B7CFA4E9179FF /* Pods-SenshuApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -214,8 +253,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA1A441324138C1A000CC15F /* TaskRow.swift in Sources */,
+				AA8822C12417F25600093D36 /* MainView.swift in Sources */,
 				AA0F5C8B241360F500E49D4E /* ContentView.swift in Sources */,
 				AA0F5C89241360F500E49D4E /* AppDelegate.swift in Sources */,
+				AAFC5D5724168FD800E46255 /* ScheduleData.swift in Sources */,
+				AA1A440D241363A2000CC15F /* TaskData.swift in Sources */,
+				AA1A441924163C43000CC15F /* ScheduleCell.swift in Sources */,
+				AA8822BE2417DF5A00093D36 /* LoginView.swift in Sources */,
+				AA8822C32417FF2300093D36 /* User.swift in Sources */,
+				AA1A440B24136392000CC15F /* Scraping.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,7 +399,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SenshuApp/SenshuApp.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SenshuApp/Preview Content\"";
 				DEVELOPMENT_TEAM = Q7M284RRBH;
@@ -366,6 +414,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.remutyapp.SenshuApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -376,7 +425,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SenshuApp/SenshuApp.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SenshuApp/Preview Content\"";
 				DEVELOPMENT_TEAM = Q7M284RRBH;
@@ -390,6 +440,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.remutyapp.SenshuApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
