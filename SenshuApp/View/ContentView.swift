@@ -26,7 +26,7 @@ struct ContentView: View {
                     }
                     MainView(scraping: self.scraping).onAppear(perform: {
                         self.scraping.fetchSchedule(self.user)
-//                        self.scraping.fetchTask(self.user)
+                        self.scraping.fetchTask(self.user)
                     })
                 }
             }else{
