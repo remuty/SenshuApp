@@ -10,6 +10,8 @@ import SwiftUI
 
 struct MainView: View {
     @ObservedObject var scraping:Scraping
+    @State var detail = false
+    var taskData:TaskData = TaskData(lectureName: "a", lectureId: "0")
     
     var body: some View {
         GeometryReader { geometry in
@@ -33,19 +35,37 @@ struct MainView: View {
                         }
                     }
                 }
-                
-                List(self.scraping.taskData){ taskData in
-                    VStack {
-                        TaskRow(taskData: taskData)
-                        Divider()
+                ZStack{
+                    List(0..<12/*self.scraping.taskData*/){ taskData in
+                        TaskRow(taskData: self.taskData)
+                            .contentShape(Rectangle())
+                            .onTapGesture {self.detail = true}
+                    }
+                    if self.detail{
+                        HStack(spacing: 0) {
+                            Text(" > ")
+                                .font(.headline)
+                                .frame(maxHeight: .infinity)
+                                .background(Color.accentColor)
+                                .contentShape(Rectangle())
+                                .onTapGesture {self.detail = false}
+                            VStack(spacing: 0) {
+                                Text("講義名")
+                                    .font(.headline)
+                                    .frame(height: 30)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.gray)
+                                List(0..<12){_ in
+                                    DetailRow()
+                                }.frame(maxHeight: .infinity)
+                            }
+                        }
                     }
                 }.frame(width: geometry.size.width / 3)
             }
-            
         }.frame(minWidth: 600,minHeight: 450)
     }
 }
-
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {

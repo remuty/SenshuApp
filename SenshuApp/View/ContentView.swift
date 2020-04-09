@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         
         VStack {
-            if user.id != "" {
+            if user.id != "a" {
                 VStack(spacing: 0) {
                     HStack {
                         Spacer()
@@ -25,8 +25,8 @@ struct ContentView: View {
                             Text("ログアウト")}
                     }
                     MainView(scraping: self.scraping).onAppear(perform: {
-                        self.scraping.fetchSchedule(self.user)
-                        self.scraping.fetchTask(self.user)
+//                        self.scraping.fetchSchedule(self.user)
+//                        self.scraping.fetchTask(self.user)
                     })
                 }
             }else{

@@ -11,18 +11,21 @@ import SwiftUI
 struct TaskRow: View {
     var taskData: TaskData
     var body: some View {
-        HStack {
-            Text(taskData.lectureName)
-                .font(.headline)
-            Spacer()
-            VStack {
-                Text("未提出 \(taskData.notSubmitted)")
-                    .font(.body)
-                    .foregroundColor(Color.green)
-                Text("未参照 \(taskData.notViewed)")
-                    .font(.body)
-                    .foregroundColor(Color.pink)
+        VStack {
+            HStack {
+                Text(taskData.lectureName)
+                    .font(.headline)
+                Spacer()
+                VStack {
+                    Text("未提出 \(taskData.notSubmitted)")
+                        .font(.body)
+                        .foregroundColor(Color.green)
+                    Text("未参照 \(taskData.notViewed)")
+                        .font(.body)
+                        .foregroundColor(Color.pink)
+                }
             }
+            Divider()
         }
     }
 }
