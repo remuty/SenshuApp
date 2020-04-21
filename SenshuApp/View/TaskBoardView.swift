@@ -9,16 +9,18 @@
 import SwiftUI
 
 struct TaskBoardView: View {
+    @ObservedObject var user:User
     var body: some View {
         HStack {
-            TaskBoard(title: "ToDo")
-            TaskBoard(title: "Done")
+            TaskBoard(user: self.user, title: "ToDo")
+            TaskBoard(user: self.user,title: "Done")
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.accentColor)
     }
 }
 
 struct TaskBoard: View {
+    @ObservedObject var user:User
     var title:String
     var body: some View {
         VStack {
@@ -28,8 +30,8 @@ struct TaskBoard: View {
                     .fontWeight(.semibold)
                     .padding(10.0)
                 ScrollView {
-                    ForEach(0..<7){_ in
-                        TaskCard()
+                    ForEach(self.user.taskDetailData){data in
+                       TaskCard(data: data)
                             .padding(.horizontal, 10.0)
                             .padding(.bottom, 7)
                     }
@@ -44,6 +46,6 @@ struct TaskBoard: View {
 
 struct TaskBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskBoardView().previewLayout(.fixed(width: 600, height: 450))
+        TaskBoardView(user: User()).previewLayout(.fixed(width: 600, height: 450))
     }
 }

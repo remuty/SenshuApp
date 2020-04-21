@@ -13,6 +13,7 @@ import Kanna
 class User: ObservableObject {
     @Published var id = ""
     @Published var password = ""
+    @Published var taskDetailData:[TaskDetailData] = []
     
     func login(id:String, pw:String, completion: @escaping (Bool) -> Void) {
         let url = "https://cp.ss.senshu-u.ac.jp"
@@ -50,5 +51,9 @@ class User: ObservableObject {
         UserDefaults.standard.removeObject(forKey: "password")
         self.id = ""
         self.password = ""
+    }
+    
+    func addToDo() {
+        taskDetailData.append(TaskDetailData("講義名", "未提出", "レポート", "11月11日"))
     }
 }

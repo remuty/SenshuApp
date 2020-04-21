@@ -9,13 +9,15 @@
 import SwiftUI
 
 struct TaskCard: View {
+    var data:TaskDetailData
     var body: some View {
         HStack {
             VStack {
-                Text("課題名")
-                    .font(.headline)
-                Text("提出期限")
-                    .font(.body)
+                HStack {
+                    Text(self.data.lectureName).font(.headline)
+                    Text(self.data.taskName).font(.headline)
+                }
+                Text("提出期限:\(self.data.deadline)").font(.body)
             }.padding(7.0)
                 .foregroundColor(Color.black)
             Spacer()
@@ -32,6 +34,6 @@ struct TaskCard: View {
 
 struct TaskCard_Previews: PreviewProvider {
     static var previews: some View {
-        TaskCard().previewLayout(.fixed(width: 300, height: 0))
+        TaskCard(data: TaskDetailData("講義名", "未提出", "レポート", "11月11日")).previewLayout(.fixed(width: 300, height: 0))
     }
 }

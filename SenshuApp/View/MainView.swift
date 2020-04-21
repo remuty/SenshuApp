@@ -72,7 +72,7 @@ struct MainView: View {
                             }
                         }
                     }else{
-                        TaskBoardView()
+                        TaskBoardView(user: self.user)
                     }
                     
                     //未提出・未参照リスト
@@ -99,7 +99,7 @@ struct MainView: View {
                                     .frame(maxWidth: .infinity)
                                     .background(Color.gray)
                                 List(0..<12){_ in
-                                    DetailRow()
+                                    DetailRow(user: self.user)
                                 }
                             }
                         }
