@@ -13,7 +13,8 @@ import Kanna
 class User: ObservableObject {
     @Published var id = ""
     @Published var password = ""
-    @Published var taskDetailData:[TaskDetailData] = []
+    @Published var toDo:[[TaskDetailData]] = [[],[]]
+    var userDefaults = UserDefaults.standard
     
     func login(id:String, pw:String, completion: @escaping (Bool) -> Void) {
         let url = "https://cp.ss.senshu-u.ac.jp"
@@ -26,8 +27,6 @@ class User: ObservableObject {
                 if let doc = try? HTML(html: html!, encoding: .utf8) {
                     //ログイン判定をする
                     if let _ = doc.at_xpath("//*[@id='cs_loginInfo']"){
-                        UserDefaults.standard.set(id, forKey: "id")
-                        UserDefaults.standard.set(pw, forKey: "password")
                         self.id = id
                         self.password = pw
                         completion(false)
@@ -40,20 +39,34 @@ class User: ObservableObject {
     }
     
     func load() {
-        if UserDefaults.standard.string(forKey: "id") != nil {
-            self.id = UserDefaults.standard.string(forKey: "id")!
-            self.password = UserDefaults.standard.string(forKey: "password")!
+        if let id = userDefaults.string(forKey: "id"){
+            self.id = id
+        }
+        if let pw = userDefaults.string(forKey: "password"){
+            self.password = pw
+        }
+        if let toDo = userDefaults.array(forKey: "toDo") as? [Data]{
+            self.toDo = toDo.map { try! JSONDecoder().decode([TaskDetailData].self, from: $0) }
         }
     }
     
+    func save() {
+        userDefaults.set(self.id, forKey: "id")
+        userDefaults.set(self.password, forKey: "password")
+        let toDoData = self.toDo.map { try? JSONEncoder().encode($0) }
+        userDefaults.set(toDoData, forKey: "toDo")
+    }
+    
     func delete() {
-        UserDefaults.standard.removeObject(forKey: "id")
-        UserDefaults.standard.removeObject(forKey: "password")
+        userDefaults.removeObject(forKey: "id")
+        userDefaults.removeObject(forKey: "password")
+        userDefaults.removeObject(forKey: "toDo")
         self.id = ""
         self.password = ""
+        self.toDo = [[],[]]
     }
     
     func addToDo() {
-        taskDetailData.append(TaskDetailData("講義名", "未提出", "レポート", "11月11日"))
+        self.toDo[0].append(TaskDetailData("講義名", "未提出", "レポート", "11月11日"))
     }
 }

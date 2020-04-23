@@ -16,10 +16,10 @@ struct TaskCard: View {
                 HStack {
                     Text(self.data.lectureName).font(.headline)
                     Text(self.data.taskName).font(.headline)
+                    Text("\(self.data.id)")
                 }
                 Text("提出期限:\(self.data.deadline)").font(.body)
             }.padding(7.0)
-                .foregroundColor(Color.black)
             Spacer()
             Text(" > ")
                 .font(.headline)
@@ -27,7 +27,7 @@ struct TaskCard: View {
                 .background(Color.accentColor)
                 .onTapGesture {}
         }.frame(maxWidth: .infinity)
-            .background(Color.white)
+            .border(Color.accentColor,width: 2)
             .cornerRadius(5)
     }
 }

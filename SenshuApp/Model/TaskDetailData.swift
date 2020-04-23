@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TaskDetailData: Identifiable{
+struct TaskDetailData: Identifiable,Codable{
     var id = UUID()
     
     var lectureName:String

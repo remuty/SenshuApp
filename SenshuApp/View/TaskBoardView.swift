@@ -12,15 +12,15 @@ struct TaskBoardView: View {
     @ObservedObject var user:User
     var body: some View {
         HStack {
-            TaskBoard(user: self.user, title: "ToDo")
-            TaskBoard(user: self.user,title: "Done")
+            TaskBoard(user: self.user, i: 0, title: "ToDo")
+            TaskBoard(user: self.user, i: 1,title: "Done")
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.accentColor)
     }
 }
 
 struct TaskBoard: View {
     @ObservedObject var user:User
+    var i:Int
     var title:String
     var body: some View {
         VStack {
@@ -29,18 +29,21 @@ struct TaskBoard: View {
                     .font(.headline)
                     .fontWeight(.semibold)
                     .padding(10.0)
-                ScrollView {
-                    ForEach(self.user.taskDetailData){data in
-                       TaskCard(data: data)
+                List {
+                    ForEach(self.user.toDo[i]){
+                       TaskCard(data: $0)
                             .padding(.horizontal, 10.0)
                             .padding(.bottom, 7)
-                    }
+                    }.onDelete(perform: delete)
                 }
             }.frame(maxWidth: .infinity)
                 .background(Color.gray)
                 .cornerRadius(10)
         }.padding(.vertical, 10.0)
             .padding(10.0)
+    }
+    private func delete(at indexSet: IndexSet) {
+        self.user.toDo[i].remove(atOffsets: indexSet)
     }
 }
 
