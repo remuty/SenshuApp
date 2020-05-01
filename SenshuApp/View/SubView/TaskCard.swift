@@ -12,20 +12,16 @@ struct TaskCard: View {
     var data:TaskDetailData
     var body: some View {
         HStack {
+            Color.accentColor
+                .frame(width: 13)
             VStack {
                 HStack {
                     Text(self.data.lectureName).font(.headline)
                     Text(self.data.taskName).font(.headline)
-                    Text("\(self.data.id)")
                 }
                 Text("提出期限:\(self.data.deadline)").font(.body)
             }.padding(7.0)
             Spacer()
-            Text(" > ")
-                .font(.headline)
-                .frame(maxHeight: .infinity)
-                .background(Color.accentColor)
-                .onTapGesture {}
         }.frame(maxWidth: .infinity)
             .border(Color.accentColor,width: 2)
             .cornerRadius(5)

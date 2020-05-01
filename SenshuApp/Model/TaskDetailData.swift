@@ -8,9 +8,7 @@
 
 import Foundation
 
-struct TaskDetailData: Identifiable,Codable{
-    var id = UUID()
-    
+struct TaskDetailData: Codable,Hashable{
     var lectureName:String
     var status:String
     var taskName:String

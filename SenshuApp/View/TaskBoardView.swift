@@ -30,10 +30,19 @@ struct TaskBoard: View {
                     .fontWeight(.semibold)
                     .padding(10.0)
                 List {
-                    ForEach(self.user.toDo[i]){
-                       TaskCard(data: $0)
+                    ForEach(0..<self.user.toDo[i].count, id: \.self){j in
+                        TaskCard(data: self.user.toDo[self.i][j])
                             .padding(.horizontal, 10.0)
                             .padding(.bottom, 7)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                if self.i == 0{
+                                    self.user.toDo[1].append(self.user.toDo[self.i][j])
+                                }else{
+                                    self.user.toDo[0].append(self.user.toDo[self.i][j])
+                                }
+                                self.user.toDo[self.i].remove(at: j)
+                        }
                     }.onDelete(perform: delete)
                 }
             }.frame(maxWidth: .infinity)
