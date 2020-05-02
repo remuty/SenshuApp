@@ -18,7 +18,7 @@ struct DetailRow: View {
                     .foregroundColor(Color.green)
                 Text("提出期限").font(.body)
                 Spacer()
-                Text("＋ToDo")
+                Text("ToDo")
                     .padding(.horizontal, 10)
                     .frame(maxHeight: .infinity)
                     .background(Color.accentColor)

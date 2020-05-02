@@ -15,16 +15,17 @@ struct ContentView: View {
     var body: some View {
         
         VStack {
-            if user.id != "a" {
-                MainView(user: self.user,scraping: self.scraping).onAppear(perform: {
-//                        self.scraping.fetchSchedule(self.user)
-//                        self.scraping.fetchTask(self.user)
+            if user.id != "" {
+                MainView(user: self.user,scraping: self.scraping)
+                    .onAppear(perform: {
+                        self.scraping.fetchSchedule(self.user)
+                        self.scraping.fetchTask(self.user)
                     })
             }else{
                 LoginView(user: self.user)
             }
-        }.onAppear(perform: {self.user.load()})
-        
+        }.frame(minWidth: 600,minHeight: 450)
+            .onAppear(perform: {self.user.load()})
     }
 }
 

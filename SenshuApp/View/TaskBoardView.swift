@@ -42,11 +42,11 @@ struct TaskBoard: View {
                                     self.user.toDo[0].append(self.user.toDo[self.i][j])
                                 }
                                 self.user.toDo[self.i].remove(at: j)
-                        }
+                            }
                     }.onDelete(perform: delete)
                 }
             }.frame(maxWidth: .infinity)
-                .background(Color.gray)
+                .background(Color.accentColor)
                 .cornerRadius(10)
         }.padding(.vertical, 10.0)
             .padding(10.0)

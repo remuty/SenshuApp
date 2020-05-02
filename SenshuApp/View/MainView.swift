@@ -15,7 +15,7 @@ struct MainView: View {
     @State var toDo = false
     
     //テスト用データ
-    var taskData:TaskData = TaskData(lectureName: "a", lectureId: "0")
+    var taskData:TaskData = TaskData(lectureName: "講義名", lectureId: "0")
     
     var body: some View {
         GeometryReader { geometry in
@@ -52,6 +52,7 @@ struct MainView: View {
                 
                 HStack(spacing: 0) {
                     if !self.toDo{
+                        //時間割
                         VStack(spacing: 0) {
                             HStack(spacing: 0) {
                                 ForEach(0..<6){
@@ -72,6 +73,7 @@ struct MainView: View {
                             }
                         }
                     }else{
+                        //タスクボード(ToDo)
                         TaskBoardView(user: self.user)
                     }
                     
@@ -89,7 +91,6 @@ struct MainView: View {
                                     Text("講義名")
                                     Spacer()
                                     Text("×")
-                                        .foregroundColor(Color.red)
                                         .padding(.horizontal, 10)
                                         .frame(maxHeight: .infinity)
                                         .contentShape(Rectangle())
@@ -97,8 +98,8 @@ struct MainView: View {
                                 }.font(.headline)
                                     .frame(height: 30)
                                     .frame(maxWidth: .infinity)
-                                    .background(Color.gray)
-                                List(0..<12){_ in
+                                    .background(Color.accentColor)
+                                List(0..<6){_ in
                                     DetailRow(user: self.user)
                                 }
                             }
@@ -107,7 +108,7 @@ struct MainView: View {
                     }.frame(width: geometry.size.width / 3)
                 }
             }
-        }.frame(minWidth: 600,minHeight: 450)
+        }
     }
 }
 
