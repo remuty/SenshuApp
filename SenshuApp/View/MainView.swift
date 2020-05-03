@@ -11,11 +11,10 @@ import SwiftUI
 struct MainView: View {
     @ObservedObject var user:User
     @ObservedObject var scraping:Scraping
-    @State var detail = false
-    @State var toDo = false
-    
+    @State var detailIdx = -1
+    @State var isToDo = false
     //テスト用データ
-    var taskData:TaskData = TaskData(lectureName: "講義名", lectureId: "0")
+    var taskData:[TaskData] = [TaskData(lectureName: "講義名1", lectureId: "0"),TaskData(lectureName: "講義名2", lectureId: "0"),TaskData(lectureName: "講義名3", lectureId: "0"),TaskData(lectureName: "講義名4", lectureId: "0"),TaskData(lectureName: "講義名5", lectureId: "0"),TaskData(lectureName: "講義名6", lectureId: "0")]
     
     var body: some View {
         GeometryReader { geometry in
@@ -24,24 +23,24 @@ struct MainView: View {
                 //メニュー
                 HStack(spacing: 0) {
                     ZStack{
-                        if !self.toDo{
+                        if !self.isToDo{
                             Color.accentColor
                         }else{
                             Color.gray
                         }
                         Text("時間割")
                             .font(.subheadline)
-                            .onTapGesture {self.toDo = false}
+                            .onTapGesture {self.isToDo = false}
                     }.frame(width: 60,height: 25)
                     ZStack{
-                        if self.toDo{
+                        if self.isToDo{
                             Color.accentColor
                         }else{
                             Color.gray
                         }
                         Text("ToDo")
                             .font(.subheadline)
-                            .onTapGesture {self.toDo = true}
+                            .onTapGesture {self.isToDo = true}
                     }.frame(width: 60,height: 25)
                     Spacer()
                     Button(action: {self.scraping.fetchTask(self.user)}) {
@@ -51,7 +50,7 @@ struct MainView: View {
                 }
                 
                 HStack(spacing: 0) {
-                    if !self.toDo{
+                    if !self.isToDo{
                         //時間割
                         VStack(spacing: 0) {
                             HStack(spacing: 0) {
@@ -79,28 +78,34 @@ struct MainView: View {
                     
                     //未提出・未参照リスト
                     ZStack{
-                        List(0..<12/*self.scraping.taskData*/){ taskData in
-                            TaskRow(taskData: self.taskData)
+                        List(self.taskData/*self.scraping.taskData*/){data in
+                            TaskRow(taskData: data)
                                 .contentShape(Rectangle())
-                                .onTapGesture {self.detail = true}
+                                .onTapGesture {
+                                    if let idx = self.taskData.firstIndex(where: {$0.lectureName == data.lectureName}) {
+                                        self.detailIdx = idx
+                                    }
+                            }
                         }
-                        if self.detail{
+                        //詳細表示
+                        if self.detailIdx != -1{
                             VStack(spacing: 0) {
                                 HStack(spacing: 0) {
                                     Spacer()
-                                    Text("講義名")
+                                    Text(self.taskData[self.detailIdx].lectureName)
                                     Spacer()
                                     Text("×")
                                         .padding(.horizontal, 10)
                                         .frame(maxHeight: .infinity)
                                         .contentShape(Rectangle())
-                                        .onTapGesture {self.detail = false}
+                                        .onTapGesture {self.detailIdx = -1}
                                 }.font(.headline)
                                     .frame(height: 30)
                                     .frame(maxWidth: .infinity)
                                     .background(Color.accentColor)
-                                List(0..<6){_ in
-                                    DetailRow(user: self.user)
+                                
+                                List(self.taskData[self.detailIdx].detailData, id: \.self){
+                                    DetailRow(user: self.user, data:$0)
                                 }
                             }
                         }

@@ -67,6 +67,6 @@ class User: ObservableObject {
     }
     
     func addToDo() {
-        self.toDo[0].append(TaskDetailData("講義名", "未提出", "レポート", "11月11日"))
+        self.toDo[0].append(TaskDetailData(lectureName: "講義名", taskName: "レポート", status: "未提出", deadline: "11月11日"))
     }
 }

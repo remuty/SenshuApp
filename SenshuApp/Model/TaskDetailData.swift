@@ -10,14 +10,7 @@ import Foundation
 
 struct TaskDetailData: Codable,Hashable{
     var lectureName:String
-    var status:String
     var taskName:String
+    var status:String
     var deadline:String
-    
-    init(_ lectureName:String, _ status:String, _ taskName:String, _ deadline:String){
-        self.lectureName = lectureName
-        self.status = status
-        self.taskName = taskName
-        self.deadline = deadline
-    }
 }

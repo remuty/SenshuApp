@@ -30,6 +30,6 @@ struct TaskCard: View {
 
 struct TaskCard_Previews: PreviewProvider {
     static var previews: some View {
-        TaskCard(data: TaskDetailData("講義名", "未提出", "レポート", "11月11日")).previewLayout(.fixed(width: 300, height: 0))
+        TaskCard(data: TaskDetailData(lectureName: "講義名", taskName: "レポート", status: "", deadline: "11月11日")).previewLayout(.fixed(width: 300, height: 0))
     }
 }

@@ -18,8 +18,8 @@ struct ContentView: View {
             if user.id != "" {
                 MainView(user: self.user,scraping: self.scraping)
                     .onAppear(perform: {
-                        self.scraping.fetchSchedule(self.user)
-                        self.scraping.fetchTask(self.user)
+//                        self.scraping.fetchSchedule(self.user)
+//                        self.scraping.fetchTask(self.user)
                     })
             }else{
                 LoginView(user: self.user)
