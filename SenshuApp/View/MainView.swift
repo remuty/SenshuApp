@@ -14,7 +14,7 @@ struct MainView: View {
     @State var detailIdx = -1
     @State var isToDo = false
     //テスト用データ
-    var taskData:[TaskData] = [TaskData(lectureName: "講義名1", lectureId: "0"),TaskData(lectureName: "講義名2", lectureId: "0"),TaskData(lectureName: "講義名3", lectureId: "0"),TaskData(lectureName: "講義名4", lectureId: "0"),TaskData(lectureName: "講義名5", lectureId: "0"),TaskData(lectureName: "講義名6", lectureId: "0")]
+    @State var taskData:[TaskData] = []
     
     var body: some View {
         GeometryReader { geometry in
@@ -114,6 +114,17 @@ struct MainView: View {
                 }
             }
         }
+            //テストデータ
+            .onAppear(perform: {
+                for i in 0..<5{
+                    self.taskData.append(TaskData(lectureName: "講義名\(i)", lectureId: "0"))
+                }
+                for i in 0..<self.taskData.count{
+                    for j in 0..<5 {
+                        self.taskData[i].detailData.append(TaskDetailData(lectureName: self.taskData[i].lectureName, taskName: "課題\(j)", status: "未提出", deadline: "提出期限:11月11日"))
+                    }
+                }
+            })
     }
 }
 

@@ -66,7 +66,7 @@ class User: ObservableObject {
         self.toDo = [[],[]]
     }
     
-    func addToDo() {
-        self.toDo[0].append(TaskDetailData(lectureName: "講義名", taskName: "レポート", status: "未提出", deadline: "11月11日"))
+    func addToDo(data: TaskDetailData) {
+        self.toDo[0].append(data)
     }
 }

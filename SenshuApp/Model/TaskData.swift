@@ -15,5 +15,5 @@ struct TaskData: Identifiable{
     var lectureId:String
     var notSubmitted:Int = 0
     var notViewed:Int = 0
-    var detailData:[TaskDetailData] = /*[] テストデータ->*/[TaskDetailData(lectureName: "", taskName: "課題1", status: "未提出", deadline: "提出期限"),TaskDetailData(lectureName: "", taskName: "課題2", status: "未提出", deadline: "提出期限"),TaskDetailData(lectureName: "", taskName: "課題3", status: "未提出", deadline: "提出期限")]
+    var detailData:[TaskDetailData] = []
 }

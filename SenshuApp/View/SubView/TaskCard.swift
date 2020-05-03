@@ -19,7 +19,7 @@ struct TaskCard: View {
                     Text(self.data.lectureName).font(.headline)
                     Text(self.data.taskName).font(.headline)
                 }
-                Text("提出期限:\(self.data.deadline)").font(.body)
+                Text(self.data.deadline).font(.body)
             }.padding(7.0)
             Spacer()
         }.frame(maxWidth: .infinity)

@@ -27,7 +27,7 @@ struct DetailRow: View {
                     .background(Color.accentColor)
                     .cornerRadius(10)
                     .contentShape(Rectangle())
-                    .onTapGesture {self.user.addToDo()}
+                    .onTapGesture {self.user.addToDo(data: self.data)}
             }
             Divider()
         }
@@ -36,6 +36,6 @@ struct DetailRow: View {
 
 struct DetailRow_Previews: PreviewProvider {
     static var previews: some View {
-        DetailRow(user: User(), data: TaskDetailData(lectureName: "",taskName: "",status: "",deadline: "")).previewLayout(.fixed(width: 300, height: 50))
+        DetailRow(user: User(), data: TaskDetailData(lectureName: "講義名",taskName: "レポート",status: "未提出",deadline: "提出期限")).previewLayout(.fixed(width: 300, height: 50))
     }
 }
