@@ -14,7 +14,8 @@ class User: ObservableObject {
     @Published var id = ""
     @Published var password = ""
     @Published var toDo:[[TaskDetailData]] = [[],[]]
-    var userDefaults = UserDefaults.standard
+    let userDefaults = UserDefaults.standard
+    let dateFmt = DateFormatter()
     
     func login(id:String, pw:String, completion: @escaping (Bool) -> Void) {
         let url = "https://cp.ss.senshu-u.ac.jp"
@@ -68,5 +69,28 @@ class User: ObservableObject {
     
     func addToDo(data: TaskDetailData) {
         self.toDo[0].append(data)
+        sortToDo()
+    }
+    
+    //ToDo,Doneのタスクを移動させる
+    func moveToDo(i:Int, j:Int) {
+        if i == 0{
+            toDo[1].append(toDo[i][j])
+        }else if i == 1{
+            toDo[0].append(toDo[i][j])
+        }
+        toDo[i].remove(at: j)
+        sortToDo()
+    }
+    
+    func sortToDo() {
+        toDo[0].sort { $0.deadline < $1.deadline }
+        toDo[1].sort { $0.deadline < $1.deadline }
+        //        dateFmt.dateStyle = .medium
+        //        dateFmt.locale = Locale(identifier: "ja_JP")
+        //        let now = Date()
+        //        let day = "提出期限:2020/05/06"
+        //        if let date = dateFmt.date(from: String(day.suffix(10))){
+        //        }
     }
 }

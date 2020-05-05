@@ -36,12 +36,7 @@ struct TaskBoard: View {
                             .padding(.bottom, 7)
                             .contentShape(Rectangle())
                             .onTapGesture {
-                                if self.i == 0{
-                                    self.user.toDo[1].append(self.user.toDo[self.i][j])
-                                }else{
-                                    self.user.toDo[0].append(self.user.toDo[self.i][j])
-                                }
-                                self.user.toDo[self.i].remove(at: j)
+                                self.user.moveToDo(i: self.i, j: j)
                             }
                     }.onDelete(perform: delete)
                 }
