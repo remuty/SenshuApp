@@ -121,7 +121,7 @@ struct MainView: View {
                 }
                 for i in 0..<self.taskData.count{
                     for j in 0..<5 {
-                        self.taskData[i].detailData.append(TaskDetailData(lectureName: self.taskData[i].lectureName, taskName: "課題\(j)", status: "未提出", deadline: "提出期限:2020/0\(i + 1)/0\(j + 1)"))
+                        self.taskData[i].detailData.append(TaskDetailData(lectureName: self.taskData[i].lectureName, taskName: "課題\(j)", status: "未提出", deadline: "提出期限:2020/0\(i + 2)/0\(j * 2)"))
                     }
                 }
             })

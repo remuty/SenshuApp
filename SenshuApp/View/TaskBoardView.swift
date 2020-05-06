@@ -31,13 +31,13 @@ struct TaskBoard: View {
                     .padding(10.0)
                 List {
                     ForEach(0..<self.user.toDo[i].count, id: \.self){j in
-                        TaskCard(data: self.user.toDo[self.i][j])
+                        TaskCard(user: self.user, data: self.user.toDo[self.i][j])
                             .padding(.horizontal, 10.0)
                             .padding(.bottom, 7)
                             .contentShape(Rectangle())
                             .onTapGesture {
                                 self.user.moveToDo(i: self.i, j: j)
-                            }
+                        }
                     }.onDelete(perform: delete)
                 }
             }.frame(maxWidth: .infinity)

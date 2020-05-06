@@ -83,14 +83,24 @@ class User: ObservableObject {
         sortToDo()
     }
     
+    //提出期限で並べ替え
     func sortToDo() {
         toDo[0].sort { $0.deadline < $1.deadline }
         toDo[1].sort { $0.deadline < $1.deadline }
-        //        dateFmt.dateStyle = .medium
-        //        dateFmt.locale = Locale(identifier: "ja_JP")
-        //        let now = Date()
-        //        let day = "提出期限:2020/05/06"
-        //        if let date = dateFmt.date(from: String(day.suffix(10))){
-        //        }
+    }
+    
+    //提出期限後ならtrueを返す
+    func isAfterDeadline(data:TaskDetailData) -> Bool {
+        dateFmt.dateStyle = .medium
+        dateFmt.locale = Locale(identifier: "ja_JP")
+        let now = Date()
+        if let deadline = dateFmt.date(from: String(data.deadline.suffix(10))){
+            if now > deadline {
+                return true
+            }else{
+                return false
+            }
+        }
+        return false
     }
 }

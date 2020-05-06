@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct TaskCard: View {
+    var user:User
     var data:TaskDetailData
     var body: some View {
         HStack {
@@ -16,12 +17,17 @@ struct TaskCard: View {
                 .frame(width: 13)
             VStack {
                 HStack {
-                    Text(self.data.lectureName).font(.headline)
-                    Text(self.data.taskName).font(.headline)
+                    Text(self.data.lectureName)
+                    Text(self.data.taskName)
                     Spacer()
+                }.font(.headline)
+                if user.isAfterDeadline(data: data){
+                    Text(self.data.deadline).foregroundColor(.red)
+                }else{
+                    Text(self.data.deadline)
                 }
-                Text(self.data.deadline).font(.body)
-            }.padding(7.0)
+            }.font(.body)
+                .padding(7.0)
         }.frame(maxWidth: .infinity)
             .border(Color.accentColor,width: 2)
             .cornerRadius(5)
@@ -30,6 +36,6 @@ struct TaskCard: View {
 
 struct TaskCard_Previews: PreviewProvider {
     static var previews: some View {
-        TaskCard(data: TaskDetailData(lectureName: "講義名", taskName: "レポート", status: "", deadline: "提出期限:2020/11/11")).previewLayout(.fixed(width: 300, height: 0))
+        TaskCard(user: User(), data: TaskDetailData(lectureName: "講義名", taskName: "レポート", status: "", deadline: "提出期限:2020/11/11")).previewLayout(.fixed(width: 300, height: 0))
     }
 }
