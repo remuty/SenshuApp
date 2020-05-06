@@ -17,7 +17,7 @@ struct LoginView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 30) {
-                Text("ログイン")
+                Text("(非公式)専大アプリ")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 
@@ -60,7 +60,7 @@ struct LoginView: View {
                     Text("ログイン")
                 }
             }.frame(width: geometry.size.width / 2)
-        }.frame(minWidth: 400,minHeight: 450)
+        }
     }
 }
 

@@ -16,24 +16,16 @@ struct ContentView: View {
         
         VStack {
             if user.id != "" {
-                VStack(spacing: 0) {
-                    HStack {
-                        Spacer()
-                        Button(action: {self.scraping.fetchTask(self.user)}) {
-                            Text("更新")}
-                        Button(action: {self.user.delete()}) {
-                            Text("ログアウト")}
-                    }
-                    MainView(scraping: self.scraping).onAppear(perform: {
-                        self.scraping.fetchSchedule(self.user)
-                        self.scraping.fetchTask(self.user)
+                MainView(user: self.user,scraping: self.scraping)
+                    .onAppear(perform: {
+//                        self.scraping.fetchSchedule(self.user)
+//                        self.scraping.fetchTask(self.user)
                     })
-                }
             }else{
                 LoginView(user: self.user)
             }
-        }.onAppear(perform: {self.user.load()})
-        
+        }.frame(minWidth: 600,minHeight: 450)
+            .onAppear(perform: {self.user.load()})
     }
 }
 

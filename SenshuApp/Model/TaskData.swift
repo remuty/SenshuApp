@@ -13,13 +13,7 @@ struct TaskData: Identifiable{
     
     var lectureName:String
     var lectureId:String
-    var notSubmitted:Int
-    var notViewed:Int
-    
-    init(lectureName:String, lectureId:String){
-        self.lectureName = lectureName
-        self.lectureId = lectureId
-        self.notSubmitted = 0
-        self.notViewed = 0
-    }
+    var notSubmitted:Int = 0
+    var notViewed:Int = 0
+    var detailData:[TaskDetailData] = []
 }

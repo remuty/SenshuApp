@@ -13,12 +13,11 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var window: NSWindow!
-
+    // Create the SwiftUI view that provides the window contents.
+    let contentView = ContentView()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
-
+        
         // Create the window and set the content view. 
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
@@ -30,10 +29,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.makeKeyAndOrderFront(nil)
     }
 
+    func applicationWillResignActive(_ notification: Notification) {
+        
+    }
+    
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
 
-
+    //windowを閉じたらDockに残さない
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        //データ保存
+        contentView.user.save()
+        return true
+    }
 }
 
